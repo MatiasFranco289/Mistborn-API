@@ -29,9 +29,9 @@ app.use(
 
 //Middlewares
 app.use(express.json());
-app.use(express.static(__dirname + '/src/views'));
 app.use('/', mainRoute);
 app.use('/characters', charactersRoute);
+app.use(express.static(__dirname + '/src/views'));
 
 //Server up
 app.listen(process.env.PORT || 3000, () => {
