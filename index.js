@@ -1,8 +1,9 @@
 require('dotenv').config();
-const {PORT} = process.env;
 var express = require('express');
 var app = express();
+const {auth} = require('express-openid-connect');
 //Routes
+const mainRoute = require('./src/routes/main.js');
 const charactersRoute = require('./src/routes/characters.js');
 
 //CORS
@@ -14,10 +15,25 @@ res.header('Access-Control-Allow-Origin', '*');
   next();
 })
 
+//Auth
+app.use(
+    auth({
+        authRequired: false,
+        auth0Logout: true,
+        issuerBaseURL: process.env.ISSUER_BASE_URL ,
+        baseURL: process.env.BASE_URL,
+        clientID: process.env.CLIENT_ID,
+        secret: process.env.SECRET
+    })
+)
+
 //Middlewares
 app.use(express.json());
+app.use(express.static(__dirname + '/src/views'));
+app.use('/', mainRoute);
 app.use('/characters', charactersRoute);
+
 //Server up
-app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
+app.listen(process.env.PORT || 3000, () => {
+    console.log(`Server is listening on port ${process.env.PORT || 3000}`);
 })
