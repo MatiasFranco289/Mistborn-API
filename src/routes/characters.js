@@ -1,8 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', (req, res) => {
+const test = function (req, res, next) {
+    console.log('LOGGED')
+    next()
+  }
+
+router.get('/', test, (req, res) => {
     res.send('Ruta get many characters');
 })
+
 
 module.exports = router;
