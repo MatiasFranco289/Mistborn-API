@@ -1,24 +1,8 @@
 var express = require('express');
 var router = express.Router();
-const getAccesTokens = require('../functions/get_access_token');
-const getUserById = require('../functions/get_user_by_id');
 const connection = require('../functions/connect_db');
-var access_token = '';
-
-connection.connect((error) => {
-  if(error) throw error;
-  console.log('Successful connection to db.');
-})
-
-const lowLevelAuth = async function (req, res, next) { //Authorizacion de bajo nivel, solo verifica que el usuario este logeado
-  access_token = access_token===''?await getAccesTokens():access_token;
-  let {apiKey} = req.query;
-
-  let userInfo = await getUserById(access_token, apiKey);
-  if(!userInfo.hasOwnProperty('identities')) return res.status(401).send(`Unhautorized, the following error has ocurred: ${JSON.stringify(userInfo)}`);
-
-  next()
-}
+const { check} = require('express-validator');
+const {lowLevelAuth, highLevelAuth} = require('../functions/auth_middlewares');
 
 router.get('/', lowLevelAuth, (req, res) => {
   let {limit, offset, order} = req.query;
@@ -35,22 +19,21 @@ router.get('/', lowLevelAuth, (req, res) => {
   })
 })
 
-router.get('/:id', lowLevelAuth, (req, res, next) => {
+router.get('/:id', lowLevelAuth,check('id').trim().escape(), (req, res) => {
   let {id} = req.params;
-  if(isNaN(id)) return next();//Si el id no es un numero me voy a la proxima ruta
-
   let {extensive} = req.query;
+
   extensive = extensive!=='true'?false:true;//Esto es asi para que no me inyecten sql
 
   let query = !extensive?`SELECT id, name, description, state FROM characters WHERE id=${id}`:
   `SELECT characters.id, characters.name, characters.description, characters.state,
-  ethnicity.ethnicity, groups.group_name, abilities.ability FROM characters
-  INNER JOIN characters_groups ON characters.id=characters_groups.id_character
-  INNER JOIN groups ON characters_groups.id_group=groups.id
-  INNER JOIN characters_abilities ON characters.id=characters_abilities.id_character
-  INNER JOIN abilities ON characters_abilities.id_ability=abilities.id
+  ethnicity.ethnicity, groups.group_name, abilities.ability FROM characters 
+  LEFT JOIN characters_groups ON characters.id=characters_groups.id_character
+  LEFT JOIN groups ON characters_groups.id_group=groups.id
+  LEFT JOIN characters_abilities ON characters.id=characters_abilities.id_character
+  LEFT JOIN abilities ON characters_abilities.id_ability=abilities.id
   INNER JOIN ethnicity ON characters.id_ethnicity=ethnicity.id
-  WHERE characters.id=${id}`;
+  WHERE ${isNaN(id)?`characters.name = "${id}"`:`characters.id=${id}`}`;
 
   connection.query(query, (error, results) => {
     if(error){connection.end; throw error}
@@ -61,8 +44,8 @@ router.get('/:id', lowLevelAuth, (req, res, next) => {
 
     if(extensive){
       results.forEach(result => {
-        if(result.ability!='-') abilities[result.ability] = '';
-        if(result.group_name!='-') groups[result.group_name] = '';
+        if(result.ability) abilities[result.ability] = '';
+        if(result.group_name) groups[result.group_name] = '';
       })
   
       abilities = Object.keys(abilities);
@@ -76,7 +59,10 @@ router.get('/:id', lowLevelAuth, (req, res, next) => {
   });
 })
 
-router.get('/:id', lowLevelAuth, (req, res, next) => {
-  res.send('Soy search by name');
+router.post('/', highLevelAuth, (req, res) => {
+  console.log(req.body);
+  res.send('Soy la ruta post');
 })
+
+
 module.exports = router;''

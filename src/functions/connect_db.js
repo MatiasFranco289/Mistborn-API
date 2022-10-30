@@ -7,14 +7,13 @@ const connection = mysql.createConnection({
     password: ''
 });
 
-/* connection.connect((error) => {
+connection.connect((error) => {
     if(error){
         throw error;
     }
     else{
         console.log('Successful connection to db.');
     }
-}) */
+})
 
-/* connection.end(); */
 module.exports = connection;

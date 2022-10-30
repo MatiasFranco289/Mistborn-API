@@ -5,6 +5,7 @@ const {auth} = require('express-openid-connect');
 //Routes
 const mainRoute = require('./src/routes/main.js');
 const charactersRoute = require('./src/routes/characters.js');
+const abilitiesRoute = require('./src/routes/abilities.js');
 
 //CORS
 app.use((req,res,next) => {
@@ -31,6 +32,7 @@ app.use(
 app.use(express.json());
 app.use('/', mainRoute);
 app.use('/characters', charactersRoute);
+app.use('/abilities', abilitiesRoute);
 app.use(express.static(__dirname + '/src/views'));
 
 
