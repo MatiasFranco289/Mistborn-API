@@ -27,9 +27,9 @@ router.get('/:id', lowLevelAuth,check('id').trim().escape(), (req, res) => {
 
   let query = !extensive?`SELECT id, name, description, state FROM characters WHERE id=${id}`:
   `SELECT characters.id, characters.name, characters.description, characters.state,
-  ethnicity.ethnicity, groups.group_name, abilities.ability FROM characters 
+  ethnicity.ethnicity, grupos.group_name, abilities.ability FROM characters 
   LEFT JOIN characters_groups ON characters.id=characters_groups.id_character
-  LEFT JOIN groups ON characters_groups.id_group=groups.id
+  LEFT JOIN grupos ON characters_groups.id_group=grupos.id
   LEFT JOIN characters_abilities ON characters.id=characters_abilities.id_character
   LEFT JOIN abilities ON characters_abilities.id_ability=abilities.id
   INNER JOIN ethnicity ON characters.id_ethnicity=ethnicity.id
