@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const connection = require('../functions/connect_db');
-const { check} = require('express-validator');
+const {check} = require('express-validator');
 const {lowLevelAuth, highLevelAuth} = require('../functions/auth_middlewares');
 
 router.get('/', lowLevelAuth, (req, res) => {
@@ -9,7 +9,7 @@ router.get('/', lowLevelAuth, (req, res) => {
 
   limit = !limit || isNaN(limit) || limit<0?6: limit;//Si limite no es valido entonce vale 6
   offset = !offset || isNaN(offset) || offset<0?0:offset;//Same
-  order = order==='DESC'?'DESC':'ASC';//Si orden no valido entonces es ASC
+  order = order.toUpperCase()==='DESC'?'DESC':'ASC';//Si orden no valido entonces es ASC
 
   connection.query(`SELECT id, name FROM characters ORDER BY name ${order}
   LIMIT ${limit} OFFSET ${offset}`, (error, results) => {
@@ -58,11 +58,5 @@ router.get('/:id', lowLevelAuth,check('id').trim().escape(), (req, res) => {
     res.send(results[0]);
   });
 })
-
-router.post('/', highLevelAuth, (req, res) => {
-  console.log(req.body);
-  res.send('Soy la ruta post');
-})
-
 
 module.exports = router;''
