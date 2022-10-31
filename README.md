@@ -49,6 +49,8 @@ Puede recibir 3 parametros por  <span style="color:#f92672">**query**</span>
 
 Recibe por <span style="color:#f92672">**params**</span> el id o nombre de un personaje. Devuelve por defecto su id, nombre, descripcion y estado.
 
+- Puede recibir un parametro <span style="color:#f92672">**extensive**</span> por <span style="color:#f92672">**query**</span>  que sera por defecto <span style="color:#f92672">**false**</span>.<br>
+En caso de que <span style="color:#f92672">**extensive**</span> sea true se agregara a la informacion normal la etnia, grupos y habilidades del personaje.
 
         axios.get('https://mistborn-api-production.up.railway.app/characters/1?apiKey=YOUR_API_KEY&extensive=false')`<br>
         .then(response => console.log(response));
