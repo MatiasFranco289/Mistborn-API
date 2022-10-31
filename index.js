@@ -37,6 +37,6 @@ app.use(express.static(__dirname + '/src/views'));
 
 
 //Server up
-app.listen(process.env.PORT || 3000, () => {
+app.listen(6144, () => {
     console.log(`Server is listening on port ${process.env.PORT || 3000}`);
 })
