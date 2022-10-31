@@ -9,7 +9,7 @@ router.get('/', lowLevelAuth, (req, res) => {
 
   limit = !limit || isNaN(limit) || limit<0?6: limit;//Si limite no es valido entonce vale 6
   offset = !offset || isNaN(offset) || offset<0?0:offset;//Same
-  order = order.toUpperCase()==='DESC'?'DESC':'ASC';//Si orden no valido entonces es ASC
+  order = order==='DESC'?'DESC':'ASC';//Si orden no valido entonces es ASC
 
   connection.query(`SELECT id, name FROM characters ORDER BY name ${order}
   LIMIT ${limit} OFFSET ${offset}`, (error, results) => {
