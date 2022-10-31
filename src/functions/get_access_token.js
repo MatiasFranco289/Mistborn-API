@@ -21,7 +21,7 @@ const getAccesTokens = () => {
   }).catch(function (error) {
     console.error(error);
   });
-
+  
   return acessToken;
 }
 
