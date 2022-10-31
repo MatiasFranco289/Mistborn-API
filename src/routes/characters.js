@@ -35,7 +35,7 @@ router.get('/:id', lowLevelAuth,check('id').trim().escape(), (req, res) => {
   INNER JOIN ethnicity ON characters.id_ethnicity=ethnicity.id
   WHERE ${isNaN(id)?`characters.name = ${id}`:`characters.id=${id}`}`;
 
-  console.log(query);
+  console.log("peticion:" + query);
 
   connection.query(query, (error, results) => {
     if(error){connection.end; throw error}
