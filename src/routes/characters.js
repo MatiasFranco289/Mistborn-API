@@ -26,7 +26,16 @@ router.get('/:id', lowLevelAuth,check('id').trim().escape(), (req, res) => {
   extensive = extensive!=='true'?false:true;//Esto es asi para que no me inyecten sql
 
   let query = !extensive?`SELECT id, name, description, state FROM characters WHERE id=${id}`:
-  `SELECT characters.id, characters.name, characters.description, characters.state,ethnicity.ethnicity, groups.group_name, abilities.ability FROM characters LEFT JOIN characters_groups ON characters.id=characters_groups.id_characterLEFT JOIN groups ON characters_groups.id_group=groups.idLEFT JOIN characters_abilities ON characters.id=characters_abilities.id_characterLEFT JOIN abilities ON characters_abilities.id_ability=abilities.idINNER JOIN ethnicity ON characters.id_ethnicity=ethnicity.idWHERE ${isNaN(id)?`characters.name = ${id}`:`characters.id=${id}`}`;
+  `SELECT characters.id, characters.name, characters.description, characters.state,
+  ethnicity.ethnicity, groups.group_name, abilities.ability FROM characters 
+  LEFT JOIN characters_groups ON characters.id=characters_groups.id_character
+  LEFT JOIN groups ON characters_groups.id_group=groups.id
+  LEFT JOIN characters_abilities ON characters.id=characters_abilities.id_character
+  LEFT JOIN abilities ON characters_abilities.id_ability=abilities.id
+  INNER JOIN ethnicity ON characters.id_ethnicity=ethnicity.id
+  WHERE ${isNaN(id)?`characters.name = ${id}`:`characters.id=${id}`}`;
+
+  console.log(query);
 
   connection.query(query, (error, results) => {
     if(error){connection.end; throw error}
