@@ -33,7 +33,7 @@ router.get('/:id', lowLevelAuth,check('id').trim().escape(), (req, res) => {
   LEFT JOIN characters_abilities ON characters.id=characters_abilities.id_character
   LEFT JOIN abilities ON characters_abilities.id_ability=abilities.id
   INNER JOIN ethnicity ON characters.id_ethnicity=ethnicity.id
-  WHERE ${isNaN(id)?`characters.name = "${id}"`:`characters.id=${id}`}`;
+  WHERE ${isNaN(id)?`characters.name = ${id}`:`characters.id=${id}`}`;
 
   connection.query(query, (error, results) => {
     if(error){connection.end; throw error}
