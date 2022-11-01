@@ -1,5 +1,5 @@
-const getAccesTokens = require('./get_access_token');
-const getUserById = require('./get_user_by_id');
+const getAccesTokens = require('../functions/get_access_token');
+const getUserById = require('../functions/get_user_by_id');
 var access_token = '';
 
 module.exports = {

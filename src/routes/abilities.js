@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const connection = require('../functions/connect_db');
-const {lowLevelAuth, highLevelAuth} = require('../functions/auth_middlewares');
+const {lowLevelAuth, highLevelAuth} = require('../middleware/auth_middlewares');
 const {check} = require('express-validator');
 
 router.get('/', lowLevelAuth, (req, res) => {
