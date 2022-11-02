@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const connection = require('../functions/connect_db');
-const {lowLevelAuth, highLevelAuth} = require('../middleware/auth_middlewares');
+const {highLevelAuth} = require('../middleware/auth_middlewares');
 const {check} = require('express-validator');
 
 router.post('/', highLevelAuth, check('ability').trim().escape(), check('description').trim().escape(), (req, res) => {

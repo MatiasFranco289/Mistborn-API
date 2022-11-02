@@ -35,7 +35,7 @@ function extendInfo(extensive, results){
 }
 
 basicGetSchema(router, connection, 'characters','name');//Ruta GET para /characters
-
+//Las rutas get de /character son unicas porque hacen un join de varias tab;as y reciben parametros extras, por eso no estan modularizadas como las demas
 router.get(//Ruta get para buscar personaje por id, no es necesario validar el id porque si no es un numero se va a la siguiente ruta
   '/:id', 
   lowLevelAuth,
@@ -44,7 +44,7 @@ router.get(//Ruta get para buscar personaje por id, no es necesario validar el i
   (req, res, next) => {
   const {id} = req.params;
   const {extensive} = req.query;
-  if(isNaN(id)) return next();
+  if(isNaN(id)) return next();//Si el id no es un numero me voy a la siguiente ruta
 
   const errors = validationResult(req);
   if(!errors.isEmpty())return res.status(400).json({errors: errors.array() });
