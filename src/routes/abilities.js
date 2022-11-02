@@ -1,23 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const connection = require('../functions/connect_db');
-const {lowLevelAuth, highLevelAuth} = require('../middleware/auth_middlewares');
+const {highLevelAuth} = require('../middleware/auth_middlewares');
 const {check} = require('express-validator');
-
-router.get('/', lowLevelAuth, (req, res) => {
-    let {limit, offset, order} = req.query;
-
-    limit = !limit || isNaN(limit) || limit<0?6: limit;
-    offset = !offset || isNaN(offset) || offset<0?0:offset;
-    order = order==='DESC'?'DESC':'ASC';
-
-    connection.query(`SELECT * FROM abilities ORDER BY ability ${order}
-    LIMIT ${limit} OFFSET ${offset}`, (error, results) => {
-        if(error){connection.end;throw error};
-    
-        res.status(200).send(results);
-    })
-})
 
 router.post('/', highLevelAuth, check('ability').trim().escape(), check('description').trim().escape(), (req, res) => {
     let {ability, description} = req.body;

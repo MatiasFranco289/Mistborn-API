@@ -5,6 +5,9 @@ const {auth} = require('express-openid-connect');
 //Routes
 const mainRoute = require('./src/routes/main.js');
 const charactersGetRoute = require('./src/routes/characters_get.js');
+const abilitiesGetRoute = require('./src/routes/abilities_get.js');
+const ethnicityGetRoute = require('./src/routes/ethnicity_get.js');
+const groupsGetRoute = require('./src/routes/groups_get.js');
 const abilitiesRoute = require('./src/routes/abilities.js');
 
 //CORS
@@ -31,8 +34,16 @@ app.use(
 //Middlewares
 app.use(express.json());
 app.use('/', mainRoute);
+
 app.use('/characters', charactersGetRoute);
+
+app.use('/abilities', abilitiesGetRoute);
 app.use('/abilities', abilitiesRoute);
+
+app.use('/ethnicities', ethnicityGetRoute);
+
+app.use('/groups', groupsGetRoute);
+
 app.use(express.static(__dirname + '/src/views'));
 
 
