@@ -10,11 +10,14 @@ module.exports = {
             '/', 
             basicGetValidation,
             (req, res) => {
-                const {limit, offset, order} = req.query;
+            const {limit, offset, order} = req.query;
 
             connection.query(`SELECT id, ${col} FROM ${tablename} ORDER BY ${col} ${order || 'ASC'}
                 LIMIT ${limit || '6'} OFFSET ${offset || '0'}`, (error, results) => {
-                response(error, results, res);
+                if(error) return res.sendStatus(500);
+                if(results.length===0) return res.sendStatus(404);
+            
+                res.status(200).send(results);
             })
         })
     },
@@ -24,7 +27,7 @@ module.exports = {
             lowLevelAuth,
             (req, res, next) => {
             const {id} = req.params;
-          
+                
             if(isNaN(id)) return next();
           
             const errors = validationResult(req);
