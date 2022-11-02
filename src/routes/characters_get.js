@@ -4,6 +4,7 @@ const connection = require('../functions/connect_db');
 const {param, query, validationResult} = require('express-validator');
 const {lowLevelAuth} = require('../middleware/auth_middlewares');
 const validateInputs = require('../middleware/validateInputs_middleware');
+const {basicGetSchema} = require('../functions/routes_schema');
 
 const getFullCharQuery = `SELECT characters.id, characters.name, characters.description, characters.state,
 ethnicity.ethnicity, grupos.group_name, abilities.ability FROM characters 
@@ -33,25 +34,7 @@ function extendInfo(extensive, results){
     return results;
 }
 
-router.get(
-  '/', 
-  lowLevelAuth,
-  query(['limit','offset']).optional().notEmpty().withMessage('Cannot be empty.').bail()
-  .isInt().withMessage('Should be an integer').bail()
-  .isInt({min:0}).withMessage('Cannot be less than 0.'),
-  query('order').optional().notEmpty().withMessage('Cannot be empty').bail()
-  .isIn(['ASC','DESC']).withMessage('The value was expected to be ASC or DESC.'),
-  validateInputs,
-  (req, res) => {
-  const {limit, offset, order} = req.query;
-
-  connection.query(`SELECT id, name FROM characters ORDER BY name ${order || 'ASC'}
-  LIMIT ${limit || '6'} OFFSET ${offset || '0'}`, (error, results) => {
-    if(error) return res.sendStatus(500);
-
-    res.status(200).send(results);
-  })
-})
+basicGetSchema(router, connection, 'characters','name');//Ruta GET para /characters
 
 router.get(//Ruta get para buscar personaje por id, no es necesario validar el id porque si no es un numero se va a la siguiente ruta
   '/:id', 
