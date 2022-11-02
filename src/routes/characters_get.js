@@ -4,7 +4,7 @@ const connection = require('../functions/connect_db');
 const {param, query, validationResult} = require('express-validator');
 const {lowLevelAuth} = require('../middleware/auth_middlewares');
 const validateInputs = require('../middleware/validateInputs_middleware');
-const {basicGetSchema} = require('../functions/routes_schema');
+const {basicGetSchema} = require('../functions/routes_get_schema');
 
 const getFullCharQuery = `SELECT characters.id, characters.name, characters.description, characters.state,
 ethnicity.ethnicity, grupos.group_name, abilities.ability FROM characters 
