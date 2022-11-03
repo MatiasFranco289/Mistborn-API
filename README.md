@@ -31,6 +31,8 @@ Si quieres obtener una de estas claves puedes enviarme un mail a  matias.franco2
 
 # Rutas
 
+### *Podrian existir rutas nuevas o algunas rutas actuales podrian funcionar difentes.La documentacion se actualizara semanalmente.* ###
+
 ## GET: /characters
 
 Devuelve el nombre y el id de 6 personajes.

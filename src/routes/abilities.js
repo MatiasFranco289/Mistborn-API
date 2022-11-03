@@ -29,17 +29,4 @@ router.delete('/', highLevelAuth, check('id').trim().escape(), (req, res) => {
     });
 })
 
-router.put('/', highLevelAuth,
-check('id').trim().escape(), 
-check('col').trim().escape(), 
-check('value').trim().escape(),
-(req, res) => {
-    const {id, col, value} = req.query;
-    let query = `UPDATE abilities SET ${col} = '${value}' WHERE ${!isNaN(id)?`id=${id}`:`ability='${id}'`}`;
-    connection.query(query, (err, result) => {
-        if(err) return res.status(409).send(err.sqlMessage);
-
-        res.status(200).send('Resource updated successfully.');
-    })
-})
 module.exports = router;

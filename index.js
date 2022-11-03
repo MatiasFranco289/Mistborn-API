@@ -6,8 +6,11 @@ const {auth} = require('express-openid-connect');
 const mainRoute = require('./src/routes/main.js');
 const charactersGetRoute = require('./src/routes/characters_get.js');
 const abilitiesGetRoute = require('./src/routes/abilities_get.js');
+const abilitiesPutRoute = require('./src/routes/abilities_put.js');
 const ethnicityGetRoute = require('./src/routes/ethnicity_get.js');
+const ethnicityPutRoute = require('./src/routes/ethnicity_put.js');
 const groupsGetRoute = require('./src/routes/groups_get.js');
+const groupsPutRoute = require('./src/routes/groups_put.js');
 const abilitiesRoute = require('./src/routes/abilities.js');
 
 //CORS
@@ -38,11 +41,14 @@ app.use('/', mainRoute);
 app.use('/characters', charactersGetRoute);
 
 app.use('/abilities', abilitiesGetRoute);
+app.use('/abilities', abilitiesPutRoute);
 app.use('/abilities', abilitiesRoute);
 
 app.use('/ethnicities', ethnicityGetRoute);
+app.use('/ethnicities', ethnicityPutRoute);
 
 app.use('/groups', groupsGetRoute);
+app.use('/groups', groupsPutRoute)
 
 app.use(express.static(__dirname + '/src/views'));
 
