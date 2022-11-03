@@ -53,7 +53,7 @@ router.get(//Ruta get para buscar personaje por id, no es necesario validar el i
   query += ` WHERE characters.id=${id}`;
 
   connection.query(query, (error, results) => {
-    if(error) /* return res.sendStatus(500); */ console.log(res.sendStatus(500));
+    if(error) return res.sendStatus(500);
     if(results.length===0) return res.sendStatus(404);
 
     results = extendInfo(extensive, results);
