@@ -7,11 +7,16 @@ const mainRoute = require('./src/routes/main.js');
 const charactersGetRoute = require('./src/routes/characters_get.js');
 const abilitiesGetRoute = require('./src/routes/abilities_get.js');
 const abilitiesPutRoute = require('./src/routes/abilities_put.js');
+const abilitiesDeleteRoute = require('./src/routes/abilities_delete.js');
+const abilitiesPostRoute = require('./src/routes/abilities_post.js');
 const ethnicityGetRoute = require('./src/routes/ethnicity_get.js');
 const ethnicityPutRoute = require('./src/routes/ethnicity_put.js');
+const ethnicityDeleteRoute = require('./src/routes/ethnicity_delete.js');
+const ethnicityPostRoute = require('./src/routes/ethnicity_post.js');
 const groupsGetRoute = require('./src/routes/groups_get.js');
 const groupsPutRoute = require('./src/routes/groups_put.js');
-const abilitiesRoute = require('./src/routes/abilities.js');
+const groupsDeleteRoute = require('./src/routes/groups_delete.js');
+const groupsPostRoute = require('./src/routes/groups_post.js');
 
 //CORS
 app.use((req,res,next) => {
@@ -42,13 +47,18 @@ app.use('/characters', charactersGetRoute);
 
 app.use('/abilities', abilitiesGetRoute);
 app.use('/abilities', abilitiesPutRoute);
-app.use('/abilities', abilitiesRoute);
+app.use('/abilities', abilitiesDeleteRoute);
+app.use('/abilities', abilitiesPostRoute);
 
 app.use('/ethnicities', ethnicityGetRoute);
 app.use('/ethnicities', ethnicityPutRoute);
+app.use('/ethnicities', ethnicityDeleteRoute);
+app.use('/ethnicities', ethnicityPostRoute);
 
 app.use('/groups', groupsGetRoute);
 app.use('/groups', groupsPutRoute)
+app.use('/groups', groupsDeleteRoute)
+app.use('/groups', groupsPostRoute)
 
 app.use(express.static(__dirname + '/src/views'));
 

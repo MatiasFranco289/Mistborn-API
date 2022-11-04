@@ -1,8 +1,6 @@
-const {basicGetValidation} = require('../middleware/customValidations_middleware');
+const {basicGetValidation, basicNameValidation} = require('../middleware/customValidations_middleware');
 const {validationResult} = require('express-validator');
 const {lowLevelAuth} = require('../middleware/auth_middlewares');
-const validateInputs = require('../middleware/validateInputs_middleware');
-const {param} = require('express-validator');
 
 module.exports = {
     basicGetSchema: (router, connection, tablename, col) => {
@@ -41,9 +39,7 @@ module.exports = {
     getByNameSchema: (router, connection, tablename, col) => {
         router.get(
             '/:name',
-            param('name').isLength({max:40}).withMessage('Cannot have more than 40 characters').bail()
-            .trim().escape(),
-            validateInputs,
+            basicNameValidation,
             (req, res) => {
             const {name} = req.params;
     
