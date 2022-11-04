@@ -31,7 +31,7 @@ Si quieres obtener una de estas claves puedes enviarme un mail a  matias.franco2
 
 # Rutas
 
-### *Podrian existir rutas nuevas o algunas rutas actuales podrian funcionar difentes.La documentacion se actualizara semanalmente.* ###
+### *Podrian existir rutas nuevas o algunas rutas actuales podrian funcionar diferente.La documentacion se actualizara semanalmente.* ###
 
 ## GET: /characters
 
