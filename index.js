@@ -5,6 +5,7 @@ const {auth} = require('express-openid-connect');
 //Routes
 const mainRoute = require('./src/routes/main.js');
 const charactersGetRoute = require('./src/routes/characters_get.js');
+const charactersPostRoute = require('./src/routes/characters_post.js');
 const abilitiesGetRoute = require('./src/routes/abilities_get.js');
 const abilitiesPutRoute = require('./src/routes/abilities_put.js');
 const abilitiesDeleteRoute = require('./src/routes/abilities_delete.js');
@@ -44,6 +45,7 @@ app.use(express.json());
 app.use('/', mainRoute);
 
 app.use('/characters', charactersGetRoute);
+app.use('/characters', charactersPostRoute);
 
 app.use('/abilities', abilitiesGetRoute);
 app.use('/abilities', abilitiesPutRoute);

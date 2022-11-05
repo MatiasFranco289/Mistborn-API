@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const connection = require('../functions/connect_db');
 const {param, query, validationResult} = require('express-validator');
 const {lowLevelAuth} = require('../middleware/auth_middlewares');
