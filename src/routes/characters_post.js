@@ -16,6 +16,7 @@ router.post(
     '/',
     highLevelAuth,
     postBodyStringValidation('name'),
+    body('name').matches(/^[A-Za-z\s]+$/).withMessage('Must be alphabetic.').bail(),
     postBodyStringValidation('description'),
     body('state').exists().withMessage('Expected to receive a state parameter.').bail()
     .isIn(['alive','dead','unknown']).withMessage('Valid values for this field are "alive", "dead" or "unknown"').bail(),

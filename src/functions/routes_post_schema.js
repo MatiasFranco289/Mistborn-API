@@ -1,6 +1,7 @@
 const {postBodyStringValidation} = require('../middleware/customValidations_middleware');
 const {highLevelAuth} = require('../middleware/auth_middlewares');
 const validateInputs = require('../middleware/validateInputs_middleware');
+const { body } = require('express-validator');
 
 module.exports = {
     postSchema: (router, connection, tablename, colname) => {
@@ -8,6 +9,7 @@ module.exports = {
             '/',
             highLevelAuth,
             postBodyStringValidation('name'),
+            body('name').matches(/^[A-Za-z\s]+$/).withMessage('Must be alphabetic.'),
             postBodyStringValidation('description'),
             validateInputs,
             (req, res) => {

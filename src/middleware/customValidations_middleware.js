@@ -13,6 +13,7 @@ module.exports={
     ],
     basicNameValidation: [
         param('name').isLength({max:40}).withMessage('Cannot have more than 40 characters').bail()
+        .matches(/^[A-Za-z\s]+$/).withMessage('Must be alphabetic.')
         .trim().escape(),
         validateInputs
     ],
