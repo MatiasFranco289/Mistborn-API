@@ -1,10 +1,11 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const connection = require('../functions/connect_db');
 const {param, query, validationResult} = require('express-validator');
 const {lowLevelAuth} = require('../middleware/auth_middlewares');
 const validateInputs = require('../middleware/validateInputs_middleware');
 const {basicGetSchema} = require('../functions/routes_get_schema');
+const {basicNameValidation} = require('../middleware/customValidations_middleware');
 
 const getFullCharQuery = `SELECT characters.id, characters.name, characters.description, characters.state,
 ethnicity.ethnicity, grupos.group_name, abilities.ability FROM characters 
@@ -64,8 +65,7 @@ router.get(//Ruta get para buscar personaje por id, no es necesario validar el i
 
 router.get(//Ruta get para personaje por nombre, no es necesario validar api key ni extensive porque ya se valido arriba
   '/:name',
-  param('name').isLength({max:40}).withMessage('Cannot have more than 40 characters').bail()
-  .trim().escape(),
+  basicNameValidation,
   validateInputs,
   (req, res) => {
     const {name} = req.params;
