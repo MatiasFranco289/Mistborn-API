@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-10-2022 a las 01:46:46
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 7.4.27
+-- Tiempo de generación: 08-11-2022 a las 10:30:16
+-- Versión del servidor: 10.4.25-MariaDB
+-- Versión de PHP: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -141,7 +141,8 @@ INSERT INTO `characters` (`id`, `name`, `description`, `state`, `id_ethnicity`) 
 (28, 'Kelsier\'s mother', 'Kelsier\'s mother is a skaa on Scadrial. She is a resourceful mistress to a high-ranking noble lord.\r\nShe deceived her lover about her skaa heritage, successfully hiding it for many years. Although her children Marsh and Kelsier were \r\nillegitimate, they grew up privileged until their father discovered the truth, at which point she was taken by obligators and presumably \r\nexecuted. Marsh and Kelsier were very young at the time; the loss of their mother caused Marsh to Snap.Their father did not report the \r\nmixed heritage of the boys to the Steel Ministry, but they lived out their childhoods in constant fear of being discovered and killed.', 'dead', 1),
 (29, 'Elend\'s mother', 'Elend\'s mother is a noblewoman in Luthadel on Scadrial.\r\nBy the time Elend met Vin, his mother had presumably died; he spoke of her in the past tense.The circumstances of her death are not known. \r\nShe had significant influence on Elend, and he took after her more than Straff.\r\nElend told Vin that his mother was fond of telling him that \'it does gentlemen good to wait upon a lady\'s whims\'.Vin said that she sounded \r\nlike a wise woman, although Elend countered that she was not wise enough to avoid marrying Straff.', 'dead', 2),
 (30, 'Jedal', 'Jedal is a skaa miner from the Eastern Dominance of the Final Empire on Scadrial. He is the father of Spook.', 'dead', 1),
-(31, 'Margel', 'Margel is a skaa woman from the Eastern Dominance of the Final Empire on Scadrial. She is the mother of Spook and the sister of Clubs.', 'dead', 1);
+(31, 'Margel', 'Margel is a skaa woman from the Eastern Dominance of the Final Empire on Scadrial. She is the mother of Spook and the sister of Clubs.', 'dead', 1),
+(32, 'asd', 'personaje creado', 'dead', 1);
 
 -- --------------------------------------------------------
 
@@ -183,7 +184,10 @@ INSERT INTO `characters_abilities` (`id_character`, `id_ability`) VALUES
 (21, 15),
 (21, 52),
 (22, 52),
-(27, 7);
+(27, 7),
+(32, 1),
+(32, 2),
+(32, 3);
 
 -- --------------------------------------------------------
 
@@ -217,7 +221,10 @@ INSERT INTO `characters_characters` (`id_character1`, `id_character2`) VALUES
 (21, 2),
 (5, 30),
 (5, 31),
-(5, 8);
+(5, 8),
+(32, 1),
+(32, 2),
+(32, 3);
 
 -- --------------------------------------------------------
 
@@ -265,7 +272,10 @@ INSERT INTO `characters_groups` (`id_character`, `id_group`) VALUES
 (21, 7),
 (23, 8),
 (24, 11),
-(27, 5);
+(27, 5),
+(32, 1),
+(32, 2),
+(32, 3);
 
 -- --------------------------------------------------------
 
@@ -297,20 +307,20 @@ INSERT INTO `ethnicity` (`id`, `ethnicity`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `groups`
+-- Estructura de tabla para la tabla `grupos`
 --
 
-CREATE TABLE `groups` (
+CREATE TABLE `grupos` (
   `id` int(11) NOT NULL,
   `group_name` varchar(40) DEFAULT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `groups`
+-- Volcado de datos para la tabla `grupos`
 --
 
-INSERT INTO `groups` (`id`, `group_name`, `description`) VALUES
+INSERT INTO `grupos` (`id`, `group_name`, `description`) VALUES
 (1, 'Skaa rebellion', 'The skaa rebellion is the name given to the group of skaa opposing the Final Empire on Scadrial.\r\nBefore Yeden hired Kelsier\'s crew to raise an army for the rebellion, Marsh was their leader.During that time the rebels hid runaways, \r\nplanned burglaries, organized raids, and kidnapped minor nobles.These rebels never expected to be able to overthrow the Final Empire, \r\nthey just wanted to achieve something grand to give the skaa hope.\r\nDuring the thousand years of the Final Empire\'s existence, there had always been skaa rebels.Around the year 700 FE they managed to gather \r\nseven thousand skaa and the end result was the Massacre of Tougier.There has never been a successful massive revolt.\r\nMarsh gave up leadership of the skaa rebellion when Kelsier was sent to the Pits of Hathsin.At that time there were about three hundred \r\nrebels in and around Luthadel and the Arguois caverns, including women and children.\r\nTowards the end of the Final Empire the rebellion was led by a skaa man named Yeden. Yeden hired Kelsier\'s crew to help overthrow the Lord \r\nRuler and his empire, and the crew played a vital role in the formation and running of the rebellion\'s armies during this time.\r\nBreeze led a team of Soothers and Rioters to help recruit soldiers from the skaa workers.\r\nHam, who had previous military experience, was in charge of training the new recruits and was the military commander of the rebellion until \r\nYeden replaced him.\r\nThe soldiers in the rebellion\'s army were hidden and trained in the Arguois caverns, near the Pits of Hathsin and the Homeland of the kandra.\r\nOnce Yeden replaced Ham, he led the rebellion on a premature strike against the empire\'s garrison at the city of Holstep. As they were \r\nreturning from their victory there, the garrison from Valtroux City caught up with them and ambushed the skaa soldiers, slaughtering everyone.\r\nDemoux and a small group of about 2,000 soldiers stayed behind in the caverns because they thought Yeden was \'acting rashly\'. Even though this \r\neffectively removed the rebellion from Kelsier\'s plan, they were eventually smuggled into Luthadel to help overthrow the Luthadel Garrison.'),
 (2, 'Steel Ministry', 'The Steel Ministry is the religion and the government bureaucracy of the Final Empire. It is made up of various divisions, named Cantons, and \r\nthe members of the Ministry are called obligators. The Inquisitors are also part of the Steel Ministry.\r\nOne of the main functions of the Ministry is to witness a myriad of contracts and agreements, even something as simple as promise to come to a \r\ngame of shelldry.The nobility pay the Lord Ruler for their services in a manner similar to that of renting skaa.As the authority in \r\nbureaucratic matters, any mercantile contracts, divorces, weddings, land purchases, inheritances, or any other important dealings could only be \r\nauthorized by obligators. If one of the Ministry hasn\'t witnessed an event or sealed a document, it might as well not have happened or have \r\nbeen written.However, obligators are also used to witness less formal agreements, such as bets between friends.\r\nThe Steel Ministry is organized into subsections named Cantons. The priests are called obligators and the Steel Inquisitors are obligators who \r\nhave been Hemalurgically granted all the powers of a Mistborn. Each Canton of the Ministry runs a specific part of the Empire\'s government.'),
 (3, 'Keeper', 'The Keepers of Terris are the major branch of Feruchemists on Scadrial during the Final Empire.Ruled over by the Synod, they copied the \r\npractices of the Worldbringers of old in collecting as much information as possible in their metalminds. They tried to stay secret from the \r\nworld, and the Lord Ruler, who would have them killed for their Feruchemical abilities.\r\nThe Keepers amassed knowledge of Scadrial from before the Lord Ruler and the advent of the Final Empire, in the hope of restoring to the people \r\nthe knowledge and heritage they had lost after Rashek took over the world.\r\nEach Keeper has access to all the stored knowledge of their order, and periodically returns to Tathingdwen, the capital of Terris Dominance, to \r\nupdate their copperminds. Also, each Keeper has a particular area of expertise, such as religions or ancient kings and leaders.'),
@@ -370,9 +380,9 @@ ALTER TABLE `ethnicity`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `groups`
+-- Indices de la tabla `grupos`
 --
-ALTER TABLE `groups`
+ALTER TABLE `grupos`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -389,7 +399,7 @@ ALTER TABLE `abilities`
 -- AUTO_INCREMENT de la tabla `characters`
 --
 ALTER TABLE `characters`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `ethnicity`
@@ -398,9 +408,9 @@ ALTER TABLE `ethnicity`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT de la tabla `groups`
+-- AUTO_INCREMENT de la tabla `grupos`
 --
-ALTER TABLE `groups`
+ALTER TABLE `grupos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
@@ -432,7 +442,7 @@ ALTER TABLE `characters_characters`
 --
 ALTER TABLE `characters_groups`
   ADD CONSTRAINT `characters_groups_ibfk_1` FOREIGN KEY (`id_character`) REFERENCES `characters` (`id`),
-  ADD CONSTRAINT `characters_groups_ibfk_2` FOREIGN KEY (`id_group`) REFERENCES `groups` (`id`);
+  ADD CONSTRAINT `characters_groups_ibfk_2` FOREIGN KEY (`id_group`) REFERENCES `grupos` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
