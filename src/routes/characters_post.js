@@ -19,10 +19,11 @@ router.post(
     body('name').matches(/^[A-Za-z\s]+$/).withMessage('Must be alphabetic.').bail(),
     postBodyStringValidation('description'),
     body('state').exists().withMessage('Expected to receive a state parameter.').bail()
-    .isIn(['alive','dead','unknown']).withMessage('Valid values for this field are "alive", "dead" or "unknown"').bail(),
+    .isIn(['alive','dead','unknown']).withMessage('Valid values for this field are "alive", "dead" or "unknown"'),
+    
     body('id_ethnicity').exists().withMessage('Expected to receive a id_ethnicity parameter.').bail()
     .isInt().withMessage('Should be an Integer').custom(async value => {
-        const query = `SELECT EXISTS(SELECT id FROM grupos WHERE id=${value})`
+        const query = `SELECT EXISTS(SELECT id FROM grupos WHERE id=${value})`;
         const result = await new Promise((resolve, reject) => {
             connection.query(query, (error, results) => {
                 if(error) reject('An unexpected error has ocurred.');
