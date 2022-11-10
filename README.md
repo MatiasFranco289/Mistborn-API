@@ -29,45 +29,23 @@ Como comprenderas no puedo publicar estas claves ya que en manos equivocadas pue
 Si quieres obtener una de estas claves puedes enviarme un mail a  matias.franco289@gmail.com y te proporcionare una :wink:.
 
 ## Que es lo nuevo?
-### V2.0 07/11/22
+### V2.1 14/11/22
 
 Se agregaron las siguiente rutas:
 
 ### Rutas GET:
 
-- GET abilities by id.
-- GET abilities by name.
-- GET ethnicities by id.
-- GET ethnicities by name.
-- GET groups by id.
-- GET groups by name.
 
 ### Rutas PUT:
 
-- PUT abilities by id.
-- PUT abilities by name.
-- PUT ethnicities by id.
-- PUT ethnicities by name.
-- PUT groups by id.
-- PUT groups by name.
+- PUT characters by id.
+- PUT characters by name.
 
 ### Rutas DELETE:
 
-- DELETE characters by id.
-- DELETE characters by name.
-- DELETE abilities by id.
-- DELETE abilities by name.
-- DELETE ethnicities by id.
-- DELETE ethnicities by name.
-- DELETE groups by id.
-- DELETE groups by name.
 
 ### Rutas POST:
 
-- POST characters.
-- POST abilities.
-- POST ethnicities.
-- POST groups.
 
 # Rutas
 
@@ -195,6 +173,25 @@ Recibe por **params** el **name** de un grupo.
         axios.get('https://mistborn-api-production.up.railway.app/groups/Keeper?apiKey=YOUR_API_KEY')
         .then(response => console.log(response));
 
+## PUT: /characters/:id
+
+### *Esta ruta require permisos elevados.* ###
+
+Edita el nombre, descripcion, estado, etnia, habilidades y grupos de un personaje.<br>
+Recibe por **params** el id de un personaje existente.<br>
+Recibe por **body** dos parametros:
+
+- **col** define el campo que se desea modificar. Su valor puede ser "name", "description", "state", "ethnicity", "abilities" o "groups".
+- **value** sera el nuevo valor que tomara el campo definido en **col**.
+
+        axios.put('https://mistborn-api-production.up.railway.app/characters/2?apiKey=YOUR_API_KEY', {
+                "col": "name",
+                "value": "Thaidakar"
+        })
+        .then(response => console.log(response));
+
+### *Nota que esta ruta edita las relaciones entre el personaje y sus habilidades o grupos por lo que si quieres dejar a un personaje sin grupo o habilidades puedes enviar un array vacio como valor para estos campos.* ###
+
 ## PUT: /abilities/:id
 
 ### *Esta ruta require permisos elevados.* ###
@@ -245,6 +242,25 @@ Recibe por **body** dos parametros:
                 "value": "new name"
         })
         .then(response => console.log(response));
+
+## PUT: /characters/:name
+
+### *Esta ruta require permisos elevados.* ###
+
+Edita el nombre, descripcion, estado, etnia, habilidades y grupos de un personaje.<br>
+Recibe por **params** el nombre de un personaje existente.<br>
+Recibe por **body** dos parametros:
+
+- **col** define el campo que se desea modificar. Su valor puede ser "name", "description", "state", "ethnicity", "abilities" o "groups".
+- **value** sera el nuevo valor que tomara el campo definido en **col**.
+
+        axios.put('https://mistborn-api-production.up.railway.app/characters/Kelsier?apiKey=YOUR_API_KEY', {
+                "col": "name",
+                "value": "Thaidakar"
+        })
+        .then(response => console.log(response));
+
+### *Nota que esta ruta edita las relaciones entre el personaje y sus habilidades o grupos por lo que si quieres dejar a un personaje sin grupo o habilidades puedes enviar un array vacio como valor para estos campos.* ###
 
 ## PUT: /abilities/:name
 
